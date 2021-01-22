@@ -18,21 +18,22 @@ public class StringSerializer implements Serializer<String> {
 
     @Override
     public void serialize(String entry, byte[] bytes, int offset, int length) {
-
+        byte[] strBytes = entry.getBytes(StandardCharsets.UTF_8);
+        System.arraycopy(strBytes, 0, bytes, offset, strBytes.length);
     }
 
     @Override
     public String parse(byte[] bytes, int offset, int length) {
-        return null;
+        return new String(bytes, offset, length, StandardCharsets.UTF_8);
     }
 
     @Override
     public byte type() {
-        return 0;
+        return Types.TYPE_STRING;
     }
 
     @Override
     public Class<String> getSerializeClass() {
-        return null;
+        return String.class;
     }
 }
